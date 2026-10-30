@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    networks:
+      - red-interna
+    depends_on:
+      - base-datos
+
+  base-datos:
+    image: redis:alpine
+    volumes:
+      - datos-redis:/data
+    networks:
+      - red-interna
+
+networks:
+  red-interna:
+    driver: bridge
+
+volumes:
+  datos-redis:
